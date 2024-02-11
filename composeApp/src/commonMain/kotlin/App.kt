@@ -12,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import io.github.aakira.napier.Napier
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
@@ -20,9 +21,14 @@ import org.jetbrains.compose.resources.painterResource
 fun App() {
     MaterialTheme {
         var showContent by remember { mutableStateOf(false) }
-        val greeting = remember { Greeting().greet() }
+        var greeting = remember { Greeting().greet() }
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            Button(onClick = { showContent = !showContent }) {
+            Button(
+                onClick = {
+                    showContent = !showContent
+                    Napier.i("ネイピアでログ出力")
+                }) {
+                greeting = Greeting().greet()
                 Text("Click me!")
             }
             AnimatedVisibility(showContent) {
