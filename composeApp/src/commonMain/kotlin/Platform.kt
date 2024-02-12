@@ -1,3 +1,4 @@
+package net.asa_o.tryout_kmp
 
 interface Platform {
     val name: String

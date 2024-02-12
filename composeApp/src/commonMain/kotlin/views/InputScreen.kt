@@ -38,7 +38,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import net.asa_o.tryout_kmp.theme.LocalThemeIsDark
-import openUrl
+import net.asa_o.tryout_kmp.openUrl
 
 class InputScreen : Screen{
     @Composable

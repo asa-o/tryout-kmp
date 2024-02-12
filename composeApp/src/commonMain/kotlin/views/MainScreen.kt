@@ -19,7 +19,7 @@ import org.jetbrains.compose.resources.painterResource
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import getPlatform
+import net.asa_o.tryout_kmp.getPlatform
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import kotlin.random.Random
 
