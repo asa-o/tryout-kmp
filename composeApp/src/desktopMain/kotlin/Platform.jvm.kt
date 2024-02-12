@@ -1,4 +1,6 @@
+package net.asa_o.tryout_kmp
 
+import io.github.aakira.napier.Napier
 import java.awt.Desktop
 import java.net.URI
 
@@ -10,5 +12,9 @@ actual fun getPlatform(): Platform = JVMPlatform()
 
 internal actual fun openUrl(url: String?) {
     val uri = url?.let { URI.create(it) } ?: return
-    Desktop.getDesktop().browse(uri)
+    try {
+        Desktop.getDesktop().browse(uri)
+    } catch (e:Exception){
+        Napier.e(e.toString())
+    }
 }

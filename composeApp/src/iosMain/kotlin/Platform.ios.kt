@@ -1,3 +1,4 @@
+package net.asa_o.tryout_kmp
 
 import platform.UIKit.UIDevice
 import platform.Foundation.NSURL
