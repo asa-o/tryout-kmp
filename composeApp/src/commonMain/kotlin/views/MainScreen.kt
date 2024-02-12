@@ -1,4 +1,4 @@
-package views
+package net.asa_o.tryout_kmp.views
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
