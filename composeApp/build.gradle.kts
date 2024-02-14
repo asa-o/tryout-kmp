@@ -17,9 +17,9 @@ kotlin {
             }
         }
     }
-    
+
     jvm("desktop")
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -30,7 +30,7 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     sourceSets {
         val desktopMain by getting
         
@@ -121,5 +121,6 @@ dependencies {
         add("kspIosArm64Test", this)
         add("kspIosSimulatorArm64", this)
         add("kspIosSimulatorArm64Test", this)
+        add("kspDesktop", this)
     }
 }
