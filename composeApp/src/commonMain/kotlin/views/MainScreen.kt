@@ -19,9 +19,19 @@ import org.jetbrains.compose.resources.painterResource
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import de.jensklingenberg.ktorfit.Ktorfit
+import de.jensklingenberg.ktorfit.http.GET
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import net.asa_o.tryout_kmp.getPlatform
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import kotlin.random.Random
+
+interface ExampleApi {
+    @GET("get")
+    suspend fun get(): String
+}
 
 class MainScreen : Screen{
     private val platform = getPlatform()
@@ -62,6 +72,18 @@ class MainScreen : Screen{
                     Text(text = "入力画面へ")
                 }
 
+                Button(
+                    onClick = {
+                        val ktorfit = Ktorfit.Builder().baseUrl("https://httpbin.org/").build()
+                        val exampleApi = ktorfit.create<ExampleApi>()
+                        CoroutineScope(Dispatchers.Main).launch {
+                            val response = exampleApi.get()
+                            Napier.i(response)
+                        }
+                    }
+                ) {
+                    Text(text = "api呼び出し")
+                }
             }
         }
     }
