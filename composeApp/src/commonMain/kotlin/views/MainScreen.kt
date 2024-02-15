@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -49,6 +50,7 @@ class MainScreen : Screen{
         MaterialTheme {
             var showContent by remember { mutableStateOf(false) }
             var greeting = remember { greet() }
+            val (responseText, setResponseText) = remember { mutableStateOf("aaa") }
             Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
                 Button(
                     onClick = {
@@ -76,14 +78,16 @@ class MainScreen : Screen{
                     onClick = {
                         val ktorfit = Ktorfit.Builder().baseUrl("https://httpbin.org/").build()
                         val exampleApi = ktorfit.create<ExampleApi>()
+                        setResponseText("api呼び出し中")
                         CoroutineScope(Dispatchers.Main).launch {
-                            val response = exampleApi.get()
-                            Napier.i(response)
+                            setResponseText( exampleApi.get() )
                         }
                     }
                 ) {
                     Text(text = "api呼び出し")
                 }
+
+                Text(text = responseText)
             }
         }
     }
