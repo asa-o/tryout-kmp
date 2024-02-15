@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.ktorfit)
+    alias(libs.plugins.kotlinxSerialization)
 }
 
 kotlin {
@@ -52,7 +53,8 @@ kotlin {
             implementation(libs.voyager.navigator)
             implementation(libs.ktorfit.lib)
             implementation(libs.sandwich.ktorfit.lib)
-
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

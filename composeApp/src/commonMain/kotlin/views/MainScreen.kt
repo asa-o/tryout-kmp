@@ -21,18 +21,19 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import de.jensklingenberg.ktorfit.Ktorfit
+import de.jensklingenberg.ktorfit.Response
 import de.jensklingenberg.ktorfit.http.GET
+import io.ktor.client.HttpClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.serialization.SerialName
 import net.asa_o.tryout_kmp.getPlatform
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import kotlin.random.Random
+import kotlinx.serialization.Serializable
+import network.ApiTest
 
-interface ExampleApi {
-    @GET("get")
-    suspend fun get(): String
-}
 
 class MainScreen : Screen{
     private val platform = getPlatform()
@@ -76,11 +77,11 @@ class MainScreen : Screen{
 
                 Button(
                     onClick = {
-                        val ktorfit = Ktorfit.Builder().baseUrl("https://httpbin.org/").build()
-                        val exampleApi = ktorfit.create<ExampleApi>()
                         setResponseText("api呼び出し中")
                         CoroutineScope(Dispatchers.Main).launch {
-                            setResponseText( exampleApi.get() )
+                            ApiTest.instance.getExampleApi().apply {
+                                setResponseText(body().toString())
+                            }
                         }
                     }
                 ) {
