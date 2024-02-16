@@ -37,6 +37,7 @@ data class Headers(
 class ApiTest {
     private val ktorfit: Ktorfit
 
+
     companion object {
         val instance = ApiTest()
     }
@@ -44,16 +45,14 @@ class ApiTest {
     init {
         val myClient = HttpClient {
             install(ContentNegotiation) {
-                json(
-                    Json {
-                        ignoreUnknownKeys = true
-                    }
-                )
+                json(Json {
+                    ignoreUnknownKeys = true
+                })
             }
             install(Logging) {
                 logger = object : Logger {
                     override fun log(message: String) {
-                        Napier.v(message, null, "HTTP Client")
+                        Napier.d(message, null, "HTTP Client")
                     }
                 }
                 level = LogLevel.ALL

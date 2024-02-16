@@ -1,5 +1,8 @@
+import com.codingfeline.buildkonfig.compiler.FieldSpec
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import java.io.FileInputStream
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -8,6 +11,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.ktorfit)
     alias(libs.plugins.kotlinxSerialization)
+    alias(libs.plugins.konfig)
 }
 
 kotlin {
@@ -126,4 +130,24 @@ dependencies {
         add("kspIosSimulatorArm64Test", this)
         add("kspDesktop", this)
     }
+}
+
+buildkonfig {
+    packageName = "net.asa_o.tryout_kmp"
+    defaultConfigs {
+        buildConfigField(FieldSpec.Type.STRING, "openAiApiKey", propOfDef("OpenAiApiKey", ""))
+    }
+}
+
+fun <T : Any> propOfDef(propertyName: String, defaultValue: T): T {
+    val props = Properties()
+    try {
+        FileInputStream("local.properties").use { props.load(it) }
+    } catch (e: Exception) {
+        println("Error reading local.properties: ${e.message}")
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    val propertyValue = props[propertyName] as? T
+    return propertyValue ?: defaultValue
 }

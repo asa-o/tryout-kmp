@@ -32,10 +32,12 @@ import net.asa_o.tryout_kmp.getPlatform
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import kotlin.random.Random
 import kotlinx.serialization.Serializable
+import network.ApiOpenAi
 import network.ApiTest
+import views.OpenAiChatScreen
 
 
-class MainScreen : Screen{
+class MainScreen : Screen {
     private val platform = getPlatform()
 
     fun greet(): String {
@@ -73,6 +75,14 @@ class MainScreen : Screen{
                     }
                 ) {
                     Text(text = "入力画面へ")
+                }
+
+                Button(
+                    onClick = {
+                        navigator.push(OpenAiChatScreen())
+                    }
+                ) {
+                    Text(text = "OpenAIチャットへ")
                 }
 
                 Button(
