@@ -74,7 +74,7 @@ class OpenAiChatScreen : Screen {
             Button(
                 onClick = {
                     CoroutineScope(Dispatchers.Main).launch {
-                        ApiOpenAi.instance.chat(prompt).apply {
+                        ApiOpenAi.chat(prompt).apply {
                             answer = body()?.choices?.get(0)?.message?.content ?: "No answer"
                         }
                     }

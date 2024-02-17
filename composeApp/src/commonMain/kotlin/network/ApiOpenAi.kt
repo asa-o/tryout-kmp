@@ -56,13 +56,9 @@ data class ChatResponse(
     val choices: List<ChatChoice>
 )
 
-class ApiOpenAi {
+object ApiOpenAi {
     private val ktorfit: Ktorfit
     private val api: ApiInterfaceOpenAi
-
-    companion object {
-        val instance = ApiOpenAi()
-    }
 
     init {
         val myClient = HttpClient {

@@ -89,7 +89,7 @@ class MainScreen : Screen {
                     onClick = {
                         setResponseText("api呼び出し中")
                         CoroutineScope(Dispatchers.Main).launch {
-                            ApiTest.instance.getExampleApi().apply {
+                            ApiTest.getExampleApi().apply {
                                 setResponseText(body().toString())
                             }
                         }

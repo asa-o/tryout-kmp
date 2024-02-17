@@ -34,13 +34,8 @@ data class Headers(
     @SerialName("X-Amzn-Trace-Id") val xAmznTraceId: String
 )
 
-class ApiTest {
+object ApiTest {
     private val ktorfit: Ktorfit
-
-
-    companion object {
-        val instance = ApiTest()
-    }
 
     init {
         val myClient = HttpClient {
