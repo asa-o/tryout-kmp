@@ -51,6 +51,7 @@ class OpenAiChatScreen : Screen {
         var prompt by remember { mutableStateOf("") }
         var answer by remember { mutableStateOf("") }
         val navigator = LocalNavigator.currentOrThrow
+        var isLoading by remember { mutableStateOf(false) }
 
         Column(modifier = Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing)) {
 
@@ -73,13 +74,14 @@ class OpenAiChatScreen : Screen {
 
             Button(
                 onClick = {
+                    isLoading = true
                     CoroutineScope(Dispatchers.Main).launch {
-                        ApiOpenAi.chat(prompt).apply {
-                            answer = body()?.choices?.get(0)?.message?.content ?: "No answer"
-                        }
+                        answer = ApiOpenAi.chat(prompt)
+                        isLoading = false
                     }
                 },
-                modifier = Modifier.fillMaxWidth().padding(16.dp)
+                modifier = Modifier.fillMaxWidth().padding(16.dp),
+                enabled = !isLoading
             ) {
                 Text("send")
             }

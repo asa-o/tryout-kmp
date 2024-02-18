@@ -83,9 +83,11 @@ object ApiOpenAi {
         api = ktorfit.create<ApiInterfaceOpenAi>()
     }
 
-    suspend fun chat(prompt: String): Response<ChatResponse> {
+    suspend fun chat(prompt: String): String {
         val chatMessage = ChatMessage("user", prompt)
         val chatData = ChatData(messages = listOf(chatMessage), model = "gpt-3.5-turbo")
-        return api.chat(chatData = chatData)
+        return api.chat(chatData = chatData).let {
+            it.body()?.choices?.get(0)?.message?.content ?: ""
+        }
     }
 }
