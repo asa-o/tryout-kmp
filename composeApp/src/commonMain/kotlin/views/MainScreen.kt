@@ -36,7 +36,6 @@ import network.ApiOpenAi
 import network.ApiTest
 import views.OpenAiChatScreen
 
-
 class MainScreen : Screen {
     private val platform = getPlatform()
 
