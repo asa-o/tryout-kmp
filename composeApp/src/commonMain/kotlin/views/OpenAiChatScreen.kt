@@ -39,6 +39,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
 import net.asa_o.tryout_kmp.openUrl
 import net.asa_o.tryout_kmp.theme.LocalThemeIsDark
@@ -75,7 +76,7 @@ class OpenAiChatScreen : Screen {
             Button(
                 onClick = {
                     isLoading = true
-                    CoroutineScope(Dispatchers.Main).launch {
+                    CoroutineScope(Dispatchers.IO).launch {
                         answer = ApiOpenAi.chat(prompt)
                         isLoading = false
                     }

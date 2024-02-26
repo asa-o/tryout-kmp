@@ -26,6 +26,7 @@ import de.jensklingenberg.ktorfit.http.GET
 import io.ktor.client.HttpClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
 import kotlinx.serialization.SerialName
 import net.asa_o.tryout_kmp.getPlatform
@@ -87,7 +88,7 @@ class MainScreen : Screen {
                 Button(
                     onClick = {
                         setResponseText("api呼び出し中")
-                        CoroutineScope(Dispatchers.Main).launch {
+                        CoroutineScope(Dispatchers.IO).launch {
                             ApiTest.getExampleApi().apply {
                                 setResponseText(body().toString())
                             }
