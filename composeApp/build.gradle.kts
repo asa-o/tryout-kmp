@@ -1,3 +1,4 @@
+import com.android.builder.model.proto.ide.SigningConfig
 import com.codingfeline.buildkonfig.compiler.FieldSpec
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
@@ -77,6 +78,10 @@ android {
     sourceSets["main"].res.srcDirs("src/androidMain/res")
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     defaultConfig {
         applicationId = "net.asa_o.tryout_kmp.androidApp"
         minSdk = libs.versions.android.minSdk.get().toInt()
@@ -93,6 +98,9 @@ android {
         getByName("release") {
             isMinifyEnabled = false
         }
+        getByName("debug") {
+            signingConfig = signingConfigs.getByName("debug")
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -103,6 +111,19 @@ android {
     }
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
+    }
+    signingConfigs {
+        val p = Properties()
+        p.load(project.rootProject.file("local.properties").reader())
+        val debugStorePassword: String = p.getProperty("SigningDebugStorePassword")
+        val debugKeyAlias: String = p.getProperty("SigningDebugKeyAlias")
+        val debugKeyPassword: String = p.getProperty("SigningDebugKeyPassword")
+        getByName("debug") {
+            storeFile = file("../signingKeys/debug.keystore")
+            storePassword = debugStorePassword
+            keyAlias = debugKeyAlias
+            keyPassword = debugKeyPassword
+        }
     }
 }
 
